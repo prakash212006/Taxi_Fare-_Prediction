@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Taxi Fare Prediction</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css">
+    <style>
+        body {
+            background-image: url("https://cdn.dribbble.com/userupload/40138309/file/original-9171ac0c56c176b2b4e1ca24fabb23f0.png?resize=400x0");
+        }
+        .container {
+            max-width: 600px;
+            margin-top: 50px;
+            background: #f4d909;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        }
+        .btn-predict {
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h2 class="text-center">🚖 Taxi Fare Prediction</h2>
+        <form id="fare-form">
+            <div class="mb-3">
+                <label class="form-label">Trip Distance (miles)</label>
+                <input type="number" class="form-control" id="trip_distance" required>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Extra Charges</label>
+                <input type="number" class="form-control" id="extra" required>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">MTA Tax</label>
+                <input type="number" class="form-control" id="mta_tax" required>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Tolls Amount</label>
+                <input type="number" class="form-control" id="tolls_amount" required>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Improvement Surcharge</label>
+                <input type="number" class="form-control" id="imp_surcharge" required>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Trip Duration (minutes)</label>
+                <input type="number" class="form-control" id="trip_duration" required>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Payment Type</label>
+                <select class="form-control" id="payment_type">
+                    <option value="1">Credit Card</option>
+                    <option value="2">Cash</option>
+                    <option value="3">No Charge</option>
+                    <option value="4">Dispute</option>
+                    <option value="5">Unknown</option>
+                </select>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Pickup Location ID</label>
+                <input type="number" class="form-control" id="pickup_location_id" required>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Dropoff Location ID</label>
+                <input type="number" class="form-control" id="dropoff_location_id" required>
+            </div>
+
+           
+
+            <button type="button" class="btn btn-primary btn-predict" onclick="predictFare()">Predict Fare</button>
+
+        </form>
+
+        <div class="mt-4">
+            <h4 class="text-center">Predicted Fare: <span id="result" class="text-success"></span></h4>
+        </div>
+    </div>
+
+    <script>
+        function predictFare() {
+            let data = {
+                trip_distance: parseFloat(document.getElementById("trip_distance").value),
+                extra: parseFloat(document.getElementById("extra").value),
+                mta_tax: parseFloat(document.getElementById("mta_tax").value),
+                tolls_amount: parseFloat(document.getElementById("tolls_amount").value),
+                imp_surcharge: parseFloat(document.getElementById("imp_surcharge").value),
+                trip_duration: parseFloat(document.getElementById("trip_duration").value),
+                payment_type: parseInt(document.getElementById("payment_type").value),
+                pickup_location_id: parseInt(document.getElementById("pickup_location_id").value),
+                dropoff_location_id: parseInt(document.getElementById("dropoff_location_id").value),
+                
+            };
+
+            fetch("/predict", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(data)
+            })
+            .then(response => response.json())
+            .then(result => {
+                document.getElementById("result").innerText = `${result.predicted_fare_amount}`;
+            })
+            .catch(error => console.error("Error:", error));
+        }
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,54 @@
+body {
+    background: url("https://cdn.dribbble.com/userupload/9823628/file/original-3f59e5a6ef05efc56ec09fedd03f2d80.png?format=webp&resize=400x300&vertical=center") no-repeat center center fixed;
+    background-size: cover;
+    font-family: Arial, sans-serif;
+}
+
+.container {
+    max-width: 600px;
+    margin-top: 50px;
+    background: linear-gradient(135deg, #ffcc70, #ff6699); /* Gradient background */
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    color: white; /* Ensure text is readable */
+}
+.form-container {
+    background: #f8f9fa; /* Light grey background */
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    color: #333; /* Dark text for readability */
+}
+
+
+
+.btn-predict {
+    width: 100%;
+}
+
+h2 {
+    color: #333;
+}
+
+.form-label {
+    font-weight: bold;
+}
+
+input, select {
+    border-radius: 5px;
+}
+
+button {
+    background-color: #007BFF;
+    color: white;
+    border: none;
+    cursor: pointer;
+    padding: 10px;
+    font-size: 16px;
+    border-radius: 5px;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
